@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>jisooo11</title>
+  <title>이지수 | 포트폴리오</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -17,10 +17,9 @@
       --primary: #6f777d;
       --link: #0092ca;
       --link-hover: #006d96;
-      --masthead-bg: #fff;
       --footer-bg: #f2f3f3;
-      --sidebar-bg: transparent;
       --tag-bg: #f2f3f3;
+      --section-gap: 3rem;
     }
 
     html { font-size: 16px; scroll-behavior: smooth; }
@@ -28,8 +27,9 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
-      line-height: 1.5;
+      font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI",
+                   "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
+      line-height: 1.6;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -38,19 +38,21 @@
     a { color: var(--link); text-decoration: none; }
     a:hover { color: var(--link-hover); text-decoration: underline; }
 
-    /* ── Masthead (상단 네비게이션 바) ── */
+    /* =========================================================
+       MASTHEAD — 상단 고정 네비게이션 바
+       ========================================================= */
     .masthead {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: var(--masthead-bg);
-      border-bottom: 1px solid var(--border);
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      background: var(--bg);
+      border-bottom: 1px solid var(--border-dark);
+      box-shadow: 0 0 10px rgba(0,0,0,0.06);
     }
-    .masthead__inner-wrap {
+    .masthead__inner {
       max-width: 1280px;
       margin: 0 auto;
-      padding: 0 1rem;
+      padding: 0 1.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -60,47 +62,55 @@
       font-size: 1rem;
       font-weight: 700;
       color: var(--primary);
-      text-decoration: none;
       letter-spacing: 0.02em;
     }
     .site-title:hover { color: var(--text); text-decoration: none; }
-    .site-subtitle {
-      font-size: 0.75rem;
-      font-weight: 400;
-      color: var(--muted);
-      display: block;
+    .site-subtitle { font-size: 0.72rem; font-weight: 400; color: var(--muted); display: block; }
+
+    /* 햄버거 메뉴 (모바일 전용 - 작은 화면에서 메뉴 토글) */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.3rem;
+      color: var(--primary);
+      padding: 0.25rem;
     }
-    .greedy-nav__links {
+    .nav-links {
       display: flex;
       gap: 0;
       list-style: none;
     }
-    .greedy-nav__links a {
+    .nav-links a {
       display: block;
       padding: 0.5rem 0.75rem;
       font-size: 0.875rem;
-      color: var(--primary);
-      text-decoration: none;
       font-weight: 700;
+      color: var(--primary);
       letter-spacing: 0.01em;
       transition: color 0.2s;
     }
-    .greedy-nav__links a:hover { color: var(--link); text-decoration: none; }
+    .nav-links a:hover { color: var(--link); text-decoration: none; }
 
-    /* ── Page wrapper (사이드바 + 본문 2단 레이아웃) ── */
+    /* =========================================================
+       PAGE WRAPPER — 사이드바 + 본문 2단 레이아웃
+       ========================================================= */
     .page__wrapper {
       flex: 1;
       max-width: 1280px;
       margin: 0 auto;
-      padding: 2rem 1rem;
+      padding: 2rem 1.5rem;
       width: 100%;
       display: grid;
       grid-template-columns: 200px 1fr;
-      gap: 2rem;
+      gap: 2.5rem;
       align-items: start;
     }
 
-    /* ── Sidebar (왼쪽 사이드바) ── */
+    /* =========================================================
+       SIDEBAR — 왼쪽 프로필 사이드바
+       ========================================================= */
     .sidebar {
       position: sticky;
       top: 72px;
@@ -108,14 +118,6 @@
     .author__avatar {
       text-align: center;
       margin-bottom: 1rem;
-    }
-    .author__avatar img {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      border: 2px solid var(--border-dark);
-      display: block;
-      margin: 0 auto;
     }
     .author__avatar-placeholder {
       width: 110px;
@@ -131,348 +133,685 @@
       font-size: 2.5rem;
     }
     .author__content { text-align: center; margin-bottom: 1rem; }
-    .author__name {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 0.25rem;
-    }
-    .author__bio {
-      font-size: 0.8125rem;
-      color: var(--muted);
-      line-height: 1.4;
-    }
-    .author__urls-wrapper { text-align: center; margin-bottom: 1rem; }
-    .author__urls {
-      list-style: none;
-      margin-top: 0.75rem;
-      text-align: left;
-    }
+    .author__name { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
+    .author__bio { font-size: 0.8rem; color: var(--muted); line-height: 1.45; }
+
+    .author__urls { list-style: none; margin-top: 0.75rem; }
     .author__urls li {
-      font-size: 0.8125rem;
-      padding: 0.25rem 0;
+      font-size: 0.8rem;
+      padding: 0.3rem 0;
       border-top: 1px solid var(--border);
     }
     .author__urls li:first-child { border-top: none; }
     .author__urls a {
       color: var(--text);
-      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.2s;
+    }
+    .author__urls a:hover { color: var(--link); text-decoration: none; }
+
+    /* =========================================================
+       MAIN CONTENT — 오른쪽 본문 영역
+       ========================================================= */
+    .page__content { min-width: 0; }
+
+    /* 공통 섹션 스타일 */
+    .section {
+      margin-bottom: var(--section-gap);
+      padding-bottom: var(--section-gap);
+      border-bottom: 1px solid var(--border);
+    }
+    .section:last-child { border-bottom: none; margin-bottom: 0; }
+
+    .section__title {
+      font-size: 1.25em;
+      font-weight: 700;
+      color: var(--text);
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--border-dark);
+      margin-bottom: 1.5rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
-    .author__urls a:hover { color: var(--link); text-decoration: none; }
-    .author__urls .label { font-size: 0.8125rem; }
-    .btn--inverse {
-      display: inline-block;
-      padding: 0.3rem 0.9rem;
-      font-size: 0.75rem;
+    .section__title i { color: var(--link); font-size: 0.9em; }
+
+    /* placeholder 박스 — 나중에 내용 채울 자리 표시용 */
+    .placeholder {
+      background: var(--tag-bg);
+      border: 1.5px dashed var(--border-dark);
+      border-radius: 6px;
+      padding: 1.5rem;
+      color: var(--muted);
+      font-size: 0.875rem;
+      text-align: center;
+    }
+    .placeholder i { display: block; font-size: 1.5rem; margin-bottom: 0.4rem; opacity: 0.5; }
+
+    /* =========================================================
+       1. HERO — 메인 인사말 섹션
+       ========================================================= */
+    .hero {
+      padding: 2rem 0 2.5rem;
+      border-bottom: 2px solid var(--border-dark);
+      margin-bottom: var(--section-gap);
+    }
+    .hero__greeting {
+      font-size: 0.95rem;
+      color: var(--link);
       font-weight: 700;
-      border: 1px solid var(--border-dark);
-      border-radius: 4px;
-      color: var(--primary);
-      background: var(--bg);
-      cursor: pointer;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      transition: background 0.2s, color 0.2s;
+      margin-bottom: 0.5rem;
     }
-    .btn--inverse:hover { background: var(--primary); color: #fff; }
-    #author-urls-list { display: none; }
-    #author-urls-list.show { display: block; }
-
-    /* ── Main content ── */
-    .page__content { min-width: 0; }
-
-    /* Hero intro */
-    .page__hero {
-      padding: 2rem 0 2.5rem;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 2rem;
-    }
-    .page__hero h1 {
-      font-size: 1.953em;
+    .hero__name {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
       font-weight: 700;
       color: var(--text);
-      margin-bottom: 0.5rem;
       line-height: 1.2;
+      margin-bottom: 0.75rem;
     }
-    .page__hero .page__lead {
-      font-size: 1.125em;
+    .hero__tagline {
+      font-size: 1.1rem;
       color: var(--muted);
-      margin-bottom: 1.25rem;
-      max-width: 600px;
+      margin-bottom: 1.5rem;
+      max-width: 520px;
     }
-    .page__hero-btns { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .hero__btns { display: flex; gap: 0.6rem; flex-wrap: wrap; }
     .btn {
       display: inline-block;
       padding: 0.4rem 1rem;
-      font-size: 0.8125rem;
+      font-size: 0.8rem;
       font-weight: 700;
       border-radius: 4px;
-      text-decoration: none;
       letter-spacing: 0.05em;
       text-transform: uppercase;
       transition: background 0.2s, color 0.2s, border-color 0.2s;
+      border: 1px solid transparent;
     }
-    .btn--primary { background: var(--link); color: #fff; border: 1px solid var(--link); }
+    .btn--primary { background: var(--link); color: #fff; border-color: var(--link); }
     .btn--primary:hover { background: var(--link-hover); border-color: var(--link-hover); color: #fff; text-decoration: none; }
-    .btn--inverse2 { background: #fff; color: var(--primary); border: 1px solid var(--border-dark); }
-    .btn--inverse2:hover { background: var(--primary); color: #fff; text-decoration: none; }
+    .btn--outline { background: #fff; color: var(--primary); border-color: var(--border-dark); }
+    .btn--outline:hover { background: var(--primary); color: #fff; text-decoration: none; }
 
-    /* Section */
-    .page__section {
-      margin-bottom: 2.5rem;
+    /* =========================================================
+       2. ABOUT — 자기소개 섹션
+       ========================================================= */
+    /* 이메일, 간단 소개글 등 자기소개 내용이 들어갈 영역 */
+    .about__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
     }
-    .page__section-title {
-      font-size: 1.25em;
+    .about__card {
+      background: var(--tag-bg);
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+    }
+    .about__card-label {
+      font-size: 0.72rem;
       font-weight: 700;
-      padding-bottom: 0.4rem;
-      border-bottom: 2px solid var(--border-dark);
-      margin-bottom: 1.25rem;
-      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
     }
-    .page__section p {
-      font-size: 0.9375rem;
-      color: var(--text);
-      margin-bottom: 0.75rem;
-      line-height: 1.65;
-    }
+    .about__card-value { font-size: 0.9rem; color: var(--text); }
 
-    /* Skills */
-    .taxonomy__section { margin-bottom: 1rem; }
-    .taxonomy__items { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-    .taxonomy__item a {
+    /* =========================================================
+       3. SKILLS — 기술 스택 섹션
+       ========================================================= */
+    /* 사용 가능한 기술/언어/툴 태그들이 들어갈 영역 */
+    .skills__group { margin-bottom: 1.1rem; }
+    .skills__group-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.5rem;
+    }
+    .skills__tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .skill-tag {
       display: inline-block;
-      padding: 0.25rem 0.7rem;
+      padding: 0.25rem 0.75rem;
       background: var(--tag-bg);
       border: 1px solid var(--border-dark);
       border-radius: 4px;
-      font-size: 0.8125rem;
+      font-size: 0.8rem;
       color: var(--text);
-      text-decoration: none;
       transition: background 0.2s, color 0.2s;
     }
-    .taxonomy__item a:hover { background: var(--link); color: #fff; text-decoration: none; border-color: var(--link); }
+    .skill-tag:hover { background: var(--link); color: #fff; border-color: var(--link); cursor: default; }
 
-    /* Feature rows / Posts grid */
-    .feature__wrapper {
+    /* =========================================================
+       4. PROJECTS — 프로젝트 섹션
+       ========================================================= */
+    /* 개발한 프로젝트 카드들이 들어갈 영역 */
+    .projects__grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       gap: 1.25rem;
-      margin-bottom: 1rem;
     }
-    .feature__item {
-      background: var(--bg);
+    .project-card {
       border: 1px solid var(--border);
-      border-radius: 4px;
-      box-shadow: 0 1px 1px rgba(0,0,0,0.125);
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
       overflow: hidden;
-      transition: box-shadow 0.2s;
+      transition: box-shadow 0.2s, border-color 0.2s;
     }
-    .feature__item:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
-    .archive__item-teaser {
-      height: 140px;
+    .project-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.12); border-color: var(--link); }
+    .project-card__thumb {
+      height: 120px;
       background: var(--tag-bg);
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--muted);
       font-size: 2rem;
+      border-bottom: 1px solid var(--border);
     }
-    .feature__item-body { padding: 1rem; }
-    .archive__item-title {
-      font-size: 0.9375rem;
-      font-weight: 700;
-      margin-bottom: 0.35rem;
-      color: var(--link);
-    }
-    .archive__item-excerpt {
-      font-size: 0.8125rem;
+    .project-card__body { padding: 1rem; }
+    .project-card__title { font-size: 0.9rem; font-weight: 700; color: var(--link); margin-bottom: 0.3rem; }
+    .project-card__desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; margin-bottom: 0.6rem; }
+    .project-card__tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+    .project-card__tag {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.5rem;
+      background: var(--tag-bg);
+      border: 1px solid var(--border-dark);
+      border-radius: 3px;
       color: var(--muted);
-      line-height: 1.5;
     }
 
-    /* Notice box */
-    .notice {
-      padding: 1em 1.25em;
-      background: #f8f9fa;
-      border-left: 4px solid var(--link);
-      border-radius: 0 4px 4px 0;
+    /* =========================================================
+       5. EXPERIENCE — 경력 / 활동 섹션
+       ========================================================= */
+    /* 인턴, 동아리, 수상 등 경력·활동 타임라인이 들어갈 영역 */
+    .timeline { list-style: none; position: relative; padding-left: 1.5rem; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0.4rem;
+      top: 0.4rem;
+      bottom: 0.4rem;
+      width: 2px;
+      background: var(--border-dark);
+    }
+    .timeline__item { position: relative; margin-bottom: 1.5rem; }
+    .timeline__item::before {
+      content: '';
+      position: absolute;
+      left: -1.15rem;
+      top: 0.45rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--link);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 0 2px var(--link);
+    }
+    .timeline__period { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.2rem; font-weight: 700; letter-spacing: 0.04em; }
+    .timeline__title { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 0.15rem; }
+    .timeline__sub { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.3rem; }
+    .timeline__desc { font-size: 0.82rem; color: var(--text); line-height: 1.55; }
+
+    /* =========================================================
+       6. CERTIFICATIONS — 자격증 섹션
+       ========================================================= */
+    /* 보유 자격증 목록이 들어갈 영역 */
+    .cert__list { list-style: none; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .cert__item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.6rem 1rem;
+      background: var(--tag-bg);
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
       font-size: 0.875rem;
       color: var(--text);
-      margin-bottom: 1.5rem;
     }
+    .cert__item i { color: var(--link); }
 
-    /* ── Footer ── */
+    /* =========================================================
+       7. CONTACT — 연락처 섹션
+       ========================================================= */
+    /* 전화번호, 이메일, SNS 등 연락처가 들어갈 영역 */
+    .contact__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; }
+    .contact__item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      font-size: 0.875rem;
+      color: var(--text);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .contact__item:hover { border-color: var(--link); background: #f0f8ff; text-decoration: none; color: var(--link); }
+    .contact__item i { color: var(--link); width: 1.1rem; text-align: center; font-size: 1rem; }
+    .contact__label { font-size: 0.7rem; color: var(--muted); display: block; }
+    .contact__value { font-weight: 600; }
+
+    /* =========================================================
+       FOOTER — 하단 푸터
+       ========================================================= */
     .page__footer {
       background: var(--footer-bg);
       border-top: 1px solid var(--border-dark);
-      padding: 1.5rem 1rem;
+      padding: 1.25rem 1.5rem;
+      text-align: center;
       font-size: 0.75rem;
       color: var(--muted);
-      text-align: center;
     }
-    .page__footer-follow { margin-bottom: 0.5rem; }
-    .page__footer-follow ul { list-style: none; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .page__footer-follow a { color: var(--muted); text-decoration: none; }
-    .page__footer-follow a:hover { color: var(--link); text-decoration: none; }
-    .page__footer-copyright { color: var(--muted); }
+    .page__footer a { color: var(--muted); }
+    .page__footer a:hover { color: var(--link); text-decoration: none; }
 
-    /* Responsive */
+    /* =========================================================
+       RESPONSIVE — 모바일 반응형 (화면 너비 768px 이하)
+       ========================================================= */
     @media (max-width: 768px) {
-      .page__wrapper { grid-template-columns: 1fr; }
-      .sidebar { position: static; }
-      .greedy-nav__links { display: none; }
+      /* 2단 → 1단 레이아웃으로 변경 */
+      .page__wrapper {
+        grid-template-columns: 1fr;
+        padding: 1.5rem 1rem;
+        gap: 0;
+      }
+
+      /* 사이드바를 상단에 가로로 배치 */
+      .sidebar {
+        position: static;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 1.5rem;
+      }
+      .author__avatar { margin-bottom: 0; }
+      .author__avatar-placeholder { width: 70px; height: 70px; font-size: 1.6rem; }
+      .author__content { text-align: left; margin-bottom: 0; }
+      .author__urls { display: none; } /* 모바일에서 사이드바 링크 숨김 */
+
+      /* 네비게이션: 햄버거 메뉴로 전환 */
+      .nav-toggle { display: block; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 56px;
+        left: 0;
+        right: 0;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border-dark);
+        flex-direction: column;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--border); }
+
+      /* About 카드 1단 */
+      .about__grid { grid-template-columns: 1fr; }
+
+      /* Hero 버튼 세로 배치 */
+      .hero__btns { flex-direction: column; align-items: flex-start; }
+
+      /* 연락처 1단 */
+      .contact__grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Masthead -->
+  <!-- =========================================================
+       MASTHEAD — 상단 고정 네비게이션
+       ========================================================= -->
   <div class="masthead">
-    <div class="masthead__inner-wrap">
-      <a class="site-title" href="/">
-        jisooo11
-        <span class="site-subtitle">개발자 포트폴리오</span>
+    <div class="masthead__inner">
+      <a class="site-title" href="#">
+        이지수
+        <span class="site-subtitle">Backend Developer Portfolio</span>
       </a>
+      <!-- 모바일 햄버거 버튼 -->
+      <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="메뉴 열기">
+        <i class="fas fa-bars"></i>
+      </button>
       <nav>
-        <ul class="greedy-nav__links">
+        <ul class="nav-links">
           <li><a href="#about">About</a></li>
           <li><a href="#skills">Skills</a></li>
           <li><a href="#projects">Projects</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#certifications">Certifications</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
     </div>
   </div>
 
-  <!-- Page wrapper -->
+  <!-- =========================================================
+       PAGE WRAPPER — 사이드바 + 본문 2단 구조
+       ========================================================= -->
   <div class="page__wrapper">
 
-    <!-- Sidebar -->
+    <!-- SIDEBAR: 프로필 이미지, 이름, 소개, 링크 -->
     <aside class="sidebar">
       <div class="author__avatar">
         <div class="author__avatar-placeholder">
+          <!-- 프로필 사진으로 교체 시: <img src="프로필.jpg" alt="이지수"> -->
           <i class="fas fa-user"></i>
         </div>
       </div>
       <div class="author__content">
-        <h3 class="author__name">jisooo11</h3>
-        <div class="author__bio">웹 개발을 공부하고 있는 개발자입니다.</div>
+        <h3 class="author__name">이지수</h3>
+        <p class="author__bio">사용자 경험을 고민하는<br>개발자를 꿈꿉니다.</p>
       </div>
-      <div class="author__urls-wrapper">
-        <button class="btn--inverse" onclick="document.getElementById('author-urls-list').classList.toggle('show')">Follow</button>
-        <ul class="author__urls" id="author-urls-list">
-          <li>
-            <a href="https://github.com/jisooo11" target="_blank" rel="noopener">
-              <i class="fab fa-fw fa-github" aria-hidden="true"></i>
-              <span class="label">GitHub</span>
-            </a>
-          </li>
-          <li>
-            <i class="fas fa-fw fa-location-dot" aria-hidden="true"></i>
-            <span>Korea</span>
-          </li>
-        </ul>
-      </div>
+      <ul class="author__urls">
+        <!-- 아래 href에 실제 주소로 채워주세요 -->
+        <li>
+          <a href="https://github.com/jisooo11" target="_blank" rel="noopener">
+            <i class="fab fa-fw fa-github"></i> GitHub
+          </a>
+        </li>
+        <li>
+          <a href="mailto:이메일@example.com">
+            <i class="fas fa-fw fa-envelope"></i> Email
+          </a>
+        </li>
+        <li>
+          <i class="fas fa-fw fa-location-dot"></i> Korea
+        </li>
+      </ul>
     </aside>
 
-    <!-- Main content -->
+    <!-- 본문 -->
     <div class="page__content">
 
-      <!-- Hero -->
-      <div class="page__hero" id="about">
-        <h1>안녕하세요, jisooo11입니다.</h1>
-        <p class="page__lead">웹 개발을 공부하고 있는 개발자입니다. 새로운 기술을 배우고 실제 프로젝트에 적용하는 것을 즐깁니다.</p>
-        <div class="page__hero-btns">
+      <!-- =====================================================
+           1. HERO — 메인 인사말
+           이름, 직무, 한 줄 소개, CTA 버튼이 들어가는 대문 영역
+           ===================================================== -->
+      <div class="hero" id="hero">
+        <p class="hero__greeting">👋 Hello, I'm</p>
+        <h1 class="hero__name">이지수</h1>
+        <!-- 한 줄 소개: 원하는 문구로 수정하세요 -->
+        <p class="hero__tagline">사용자 경험을 고민하는 개발자를 꿈꿉니다.</p>
+        <div class="hero__btns">
           <a href="#projects" class="btn btn--primary">프로젝트 보기</a>
-          <a href="#contact" class="btn btn--inverse2">연락하기</a>
+          <a href="#contact" class="btn btn--outline">연락하기</a>
         </div>
       </div>
 
-      <!-- About -->
-      <div class="page__section">
-        <h2 class="page__section-title">About Me</h2>
-        <div class="notice">
-          <i class="fas fa-info-circle"></i> 이 페이지는 <strong>Minimal Mistakes</strong> 테마 스타일로 제작되었습니다.
-        </div>
-        <p>안녕하세요! 저는 웹 개발에 관심이 많은 개발자입니다.</p>
-        <p>새로운 기술을 배우고 실제 프로젝트에 적용하는 것을 즐깁니다.</p>
-      </div>
+      <!-- =====================================================
+           2. ABOUT — 자기소개
+           간단한 소개 문단 + 이메일 등 기본 정보 카드
+           ===================================================== -->
+      <section class="section" id="about">
+        <h2 class="section__title"><i class="fas fa-user-circle"></i> About Me</h2>
 
-      <!-- Skills -->
-      <div class="page__section" id="skills">
-        <h2 class="page__section-title">Skills</h2>
-        <div class="taxonomy__section">
-          <div class="taxonomy__items">
-            <div class="taxonomy__item"><a href="#">HTML</a></div>
-            <div class="taxonomy__item"><a href="#">CSS</a></div>
-            <div class="taxonomy__item"><a href="#">JavaScript</a></div>
-            <div class="taxonomy__item"><a href="#">React</a></div>
-            <div class="taxonomy__item"><a href="#">Git</a></div>
-            <div class="taxonomy__item"><a href="#">GitHub</a></div>
-          </div>
+        <!-- 자기소개 본문: 2~3문단 자유롭게 작성 -->
+        <div class="placeholder" style="margin-bottom:1.25rem;">
+          <i class="fas fa-pen-to-square"></i>
+          자기소개 문단을 여기에 작성하세요.<br>
+          (예: 저는 ~한 개발자입니다. ~한 경험을 통해 ~를 배웠습니다.)
         </div>
-      </div>
 
-      <!-- Projects -->
-      <div class="page__section" id="projects">
-        <h2 class="page__section-title">Projects</h2>
-        <div class="feature__wrapper">
-          <div class="feature__item">
-            <div class="archive__item-teaser">
-              <i class="fas fa-code"></i>
-            </div>
-            <div class="feature__item-body">
-              <h3 class="archive__item-title">프로젝트 1</h3>
-              <p class="archive__item-excerpt">프로젝트 설명을 여기에 작성하세요.</p>
-            </div>
+        <!-- 기본 정보 카드 -->
+        <div class="about__grid">
+          <div class="about__card">
+            <p class="about__card-label"><i class="fas fa-envelope"></i> 이메일</p>
+            <!-- 실제 이메일로 교체하세요 -->
+            <p class="about__card-value">이메일@example.com</p>
           </div>
-          <div class="feature__item">
-            <div class="archive__item-teaser">
-              <i class="fas fa-laptop-code"></i>
-            </div>
-            <div class="feature__item-body">
-              <h3 class="archive__item-title">프로젝트 2</h3>
-              <p class="archive__item-excerpt">프로젝트 설명을 여기에 작성하세요.</p>
-            </div>
+          <div class="about__card">
+            <p class="about__card-label"><i class="fas fa-graduation-cap"></i> 학력</p>
+            <p class="about__card-value">서울권 4년제 대학교<br>컴퓨터공학과 졸업</p>
           </div>
-          <div class="feature__item">
-            <div class="archive__item-teaser">
-              <i class="fas fa-rocket"></i>
-            </div>
-            <div class="feature__item-body">
-              <h3 class="archive__item-title">프로젝트 3</h3>
-              <p class="archive__item-excerpt">프로젝트 설명을 여기에 작성하세요.</p>
-            </div>
+          <div class="about__card">
+            <p class="about__card-label"><i class="fas fa-briefcase"></i> 희망 직무</p>
+            <p class="about__card-value">신입 백엔드 개발자</p>
+          </div>
+          <div class="about__card">
+            <p class="about__card-label"><i class="fas fa-location-dot"></i> 거주지</p>
+            <!-- 거주 지역으로 교체하세요 -->
+            <p class="about__card-value">대한민국</p>
           </div>
         </div>
-      </div>
+      </section>
 
-      <!-- Contact -->
-      <div class="page__section" id="contact">
-        <h2 class="page__section-title">Contact</h2>
-        <p>언제든지 연락주세요!</p>
-        <p>
-          <a href="https://github.com/jisooo11" target="_blank">
-            <i class="fab fa-github"></i> GitHub: jisooo11
+      <!-- =====================================================
+           3. SKILLS — 기술 스택
+           사용 가능한 언어, 프레임워크, 도구 태그 목록
+           ===================================================== -->
+      <section class="section" id="skills">
+        <h2 class="section__title"><i class="fas fa-code"></i> Skills</h2>
+
+        <!-- 백엔드 기술 -->
+        <div class="skills__group">
+          <p class="skills__group-label">Backend</p>
+          <div class="skills__tags">
+            <span class="skill-tag">TypeScript</span>
+            <span class="skill-tag">NestJS</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Django</span>
+            <span class="skill-tag">Flask</span>
+          </div>
+        </div>
+
+        <!-- 데이터베이스 -->
+        <div class="skills__group">
+          <p class="skills__group-label">Database</p>
+          <div class="skills__tags">
+            <span class="skill-tag">MongoDB</span>
+            <span class="skill-tag">MySQL</span>
+          </div>
+        </div>
+
+        <!-- 클라우드 / 인프라 -->
+        <div class="skills__group">
+          <p class="skills__group-label">Cloud / Infra</p>
+          <div class="skills__tags">
+            <span class="skill-tag">AWS S3</span>
+          </div>
+        </div>
+
+        <!-- AI / 데이터 -->
+        <div class="skills__group">
+          <p class="skills__group-label">AI / Data</p>
+          <div class="skills__tags">
+            <span class="skill-tag">YOLO</span>
+            <span class="skill-tag">공공데이터 API</span>
+          </div>
+        </div>
+
+        <!-- 기타 도구 — 필요한 것 추가하세요 -->
+        <div class="skills__group">
+          <p class="skills__group-label">Tools</p>
+          <div class="skills__tags">
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">GitHub</span>
+            <!-- 추가 도구를 여기에 <span class="skill-tag">도구명</span> 형태로 넣으세요 -->
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+           4. PROJECTS — 프로젝트
+           개발 프로젝트 카드: 썸네일, 제목, 설명, 기술 태그
+           ===================================================== -->
+      <section class="section" id="projects">
+        <h2 class="section__title"><i class="fas fa-folder-open"></i> Projects</h2>
+        <div class="projects__grid">
+
+          <!-- 프로젝트 카드 1 -->
+          <div class="project-card">
+            <div class="project-card__thumb">
+              <!-- 프로젝트 대표 이미지 또는 아이콘 -->
+              <i class="fas fa-robot"></i>
+            </div>
+            <div class="project-card__body">
+              <!-- 프로젝트 제목, 설명, 사용 기술을 채워주세요 -->
+              <p class="project-card__title">AI 도시락 앱</p>
+              <p class="project-card__desc">카메라 촬영 → AI 음식 인식 → 칼로리 자동 계산. 전국 공모전 입선.</p>
+              <div class="project-card__tags">
+                <span class="project-card__tag">YOLO</span>
+                <span class="project-card__tag">공공데이터 API</span>
+                <span class="project-card__tag">풀스택</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 프로젝트 카드 2 -->
+          <div class="project-card">
+            <div class="project-card__thumb">
+              <i class="fas fa-map-location-dot"></i>
+            </div>
+            <div class="project-card__body">
+              <p class="project-card__title">지역상권 분석 앱</p>
+              <p class="project-card__desc">데이터 시각화 앱 개발. 교내 대회 대상 수상.</p>
+              <div class="project-card__tags">
+                <span class="project-card__tag">앱 개발</span>
+                <span class="project-card__tag">데이터 시각화</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 프로젝트 카드 3 -->
+          <div class="project-card">
+            <div class="project-card__thumb">
+              <i class="fas fa-mobile-screen"></i>
+            </div>
+            <div class="project-card__body">
+              <p class="project-card__title">코로나 동아리 홍보 앱</p>
+              <p class="project-card__desc">기획·개발·배포 전 과정 단독 주도. 학교 설득 후 전액 지원 확보, 교내 배포 완료.</p>
+              <div class="project-card__tags">
+                <span class="project-card__tag">기획</span>
+                <span class="project-card__tag">개발</span>
+                <span class="project-card__tag">배포</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 새 프로젝트 카드 추가 시 위 카드 블록을 복사해서 붙여넣으세요 -->
+
+        </div>
+      </section>
+
+      <!-- =====================================================
+           5. EXPERIENCE — 경력 / 활동
+           인턴, 동아리, 수상 이력을 타임라인으로 표시
+           ===================================================== -->
+      <section class="section" id="experience">
+        <h2 class="section__title"><i class="fas fa-briefcase"></i> Experience &amp; Activity</h2>
+        <ul class="timeline">
+
+          <!-- 경력 항목: 기간, 직책, 소속, 세부 내용 채워주세요 -->
+          <li class="timeline__item">
+            <p class="timeline__period">20XX.XX — 20XX.XX</p>
+            <p class="timeline__title">메타버스 기업 서버 개발 인턴</p>
+            <p class="timeline__sub">회사명 · 백엔드 개발</p>
+            <p class="timeline__desc">NestJS · MongoDB · AWS S3 활용. 이미지 직접 저장 → URI 저장 방식 전환으로 DB 용량 효율 개선 (단독).</p>
+          </li>
+
+          <li class="timeline__item">
+            <p class="timeline__period">20XX.XX — 20XX.XX</p>
+            <p class="timeline__title">금융기업 디지털 기획 인턴</p>
+            <p class="timeline__sub">회사명 · 디지털 기획</p>
+            <p class="timeline__desc">온누리상품권 앱 기획 참여.</p>
+          </li>
+
+          <li class="timeline__item">
+            <p class="timeline__period">20XX — 20XX (3년)</p>
+            <p class="timeline__title">코딩 교육 동아리 회장</p>
+            <p class="timeline__sub">소속 대학교</p>
+            <p class="timeline__desc">비전공자 코딩 교육 진행. 전국 50개 대학 참여. 담당 지부 회원 60명.</p>
+          </li>
+
+          <!-- 활동 항목 추가 시 위 <li> 블록을 복사해서 넣으세요 -->
+
+        </ul>
+      </section>
+
+      <!-- =====================================================
+           6. CERTIFICATIONS — 자격증
+           보유 자격증 목록
+           ===================================================== -->
+      <section class="section" id="certifications">
+        <h2 class="section__title"><i class="fas fa-certificate"></i> Certifications</h2>
+        <ul class="cert__list">
+
+          <!-- 자격증 항목: 이름, 취득일 채워주세요 -->
+          <li class="cert__item">
+            <i class="fas fa-award"></i>
+            <div>
+              <strong>정보처리기사</strong>
+              <span style="font-size:0.75rem; color:var(--muted); display:block;">취득일: 20XX.XX</span>
+            </div>
+          </li>
+
+          <li class="cert__item">
+            <i class="fas fa-database"></i>
+            <div>
+              <strong>SQLD</strong>
+              <span style="font-size:0.75rem; color:var(--muted); display:block;">취득일: 20XX.XX</span>
+            </div>
+          </li>
+
+          <!-- 자격증 추가 시 위 <li> 블록을 복사해서 넣으세요 -->
+
+        </ul>
+      </section>
+
+      <!-- =====================================================
+           7. CONTACT — 연락처
+           전화번호, 이메일, GitHub 등 연락 수단
+           ===================================================== -->
+      <section class="section" id="contact">
+        <h2 class="section__title"><i class="fas fa-paper-plane"></i> Contact</h2>
+        <div class="contact__grid">
+
+          <!-- 실제 값으로 교체하세요 -->
+          <a class="contact__item" href="tel:010-0000-0000">
+            <i class="fas fa-phone"></i>
+            <div>
+              <span class="contact__label">전화번호</span>
+              <span class="contact__value">010-0000-0000</span>
+            </div>
           </a>
-        </p>
-      </div>
+
+          <a class="contact__item" href="mailto:이메일@example.com">
+            <i class="fas fa-envelope"></i>
+            <div>
+              <span class="contact__label">이메일</span>
+              <span class="contact__value">이메일@example.com</span>
+            </div>
+          </a>
+
+          <a class="contact__item" href="https://github.com/jisooo11" target="_blank" rel="noopener">
+            <i class="fab fa-github"></i>
+            <div>
+              <span class="contact__label">GitHub</span>
+              <span class="contact__value">jisooo11</span>
+            </div>
+          </a>
+
+          <!-- 추가 연락처 (LinkedIn, 블로그 등) 필요하면 위 <a> 블록 복사해서 넣으세요 -->
+
+        </div>
+      </section>
 
     </div><!-- /.page__content -->
   </div><!-- /.page__wrapper -->
 
-  <!-- Footer -->
+  <!-- =========================================================
+       FOOTER — 하단 저작권 표시
+       ========================================================= -->
   <footer class="page__footer">
-    <div class="page__footer-follow">
-      <ul>
-        <li><i class="fas fa-rss" aria-hidden="true"></i> <a href="#">Feed</a></li>
-        <li><a href="https://github.com/jisooo11" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
-      </ul>
-    </div>
-    <div class="page__footer-copyright">&copy; 2026 jisooo11. Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/">Minimal Mistakes</a>.</div>
+    <p>&copy; 2026 이지수. Powered by <a href="https://pages.github.com" target="_blank">GitHub Pages</a> &amp; <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/" target="_blank">Minimal Mistakes</a>.</p>
   </footer>
 
 </body>
