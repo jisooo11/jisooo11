@@ -276,16 +276,29 @@
     }
     .skills__tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
     .skill-tag {
-      display: inline-block;
-      padding: 0.25rem 0.75rem;
-      background: var(--tag-bg);
-      border: 1px solid var(--border-dark);
-      border-radius: 4px;
-      font-size: 0.8rem;
-      color: var(--text);
-      transition: background 0.2s, color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      border: 1.5px solid transparent;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+      cursor: default;
     }
-    .skill-tag:hover { background: var(--link); color: #fff; border-color: var(--link); cursor: default; }
+    .skill-tag:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+      filter: brightness(0.93);
+    }
+    /* 카테고리별 배지 색상 */
+    .badge--backend  { background: #e8f4fd; color: #1a6fa8; border-color: #b8d9f0; }
+    .badge--database { background: #edf7ee; color: #2a7a3b; border-color: #b5debb; }
+    .badge--cloud    { background: #fff4e5; color: #a05c00; border-color: #f5d49a; }
+    .badge--ai       { background: #f3eeff; color: #6b3dbd; border-color: #cdb9f5; }
+    .badge--tools    { background: #fef0f0; color: #b03030; border-color: #f5bcbc; }
 
     /* =========================================================
        4. PROJECTS — 프로젝트 섹션
@@ -595,11 +608,11 @@
         <div class="skills__group">
           <p class="skills__group-label">Backend</p>
           <div class="skills__tags">
-            <span class="skill-tag">TypeScript</span>
-            <span class="skill-tag">NestJS</span>
-            <span class="skill-tag">Python</span>
-            <span class="skill-tag">Django</span>
-            <span class="skill-tag">Flask</span>
+            <span class="skill-tag badge--backend">TypeScript</span>
+            <span class="skill-tag badge--backend">NestJS</span>
+            <span class="skill-tag badge--backend">Python</span>
+            <span class="skill-tag badge--backend">Django</span>
+            <span class="skill-tag badge--backend">Flask</span>
           </div>
         </div>
 
@@ -607,8 +620,8 @@
         <div class="skills__group">
           <p class="skills__group-label">Database</p>
           <div class="skills__tags">
-            <span class="skill-tag">MongoDB</span>
-            <span class="skill-tag">MySQL</span>
+            <span class="skill-tag badge--database">MongoDB</span>
+            <span class="skill-tag badge--database">MySQL</span>
           </div>
         </div>
 
@@ -616,7 +629,7 @@
         <div class="skills__group">
           <p class="skills__group-label">Cloud / Infra</p>
           <div class="skills__tags">
-            <span class="skill-tag">AWS S3</span>
+            <span class="skill-tag badge--cloud">AWS S3</span>
           </div>
         </div>
 
@@ -624,8 +637,8 @@
         <div class="skills__group">
           <p class="skills__group-label">AI / Data</p>
           <div class="skills__tags">
-            <span class="skill-tag">YOLO</span>
-            <span class="skill-tag">공공데이터 API</span>
+            <span class="skill-tag badge--ai">YOLO</span>
+            <span class="skill-tag badge--ai">공공데이터 API</span>
           </div>
         </div>
 
@@ -633,9 +646,9 @@
         <div class="skills__group">
           <p class="skills__group-label">Tools</p>
           <div class="skills__tags">
-            <span class="skill-tag">Git</span>
-            <span class="skill-tag">GitHub</span>
-            <!-- 추가 도구를 여기에 <span class="skill-tag">도구명</span> 형태로 넣으세요 -->
+            <span class="skill-tag badge--tools">Git</span>
+            <span class="skill-tag badge--tools">GitHub</span>
+            <!-- 추가 도구를 여기에 <span class="skill-tag badge--tools">도구명</span> 형태로 넣으세요 -->
           </div>
         </div>
       </section>
