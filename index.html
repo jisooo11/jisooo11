@@ -3,181 +3,476 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>jisooo11 | Portfolio</title>
+  <title>jisooo11</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --color-bg: #0d1117;
-      --color-surface: #161b22;
-      --color-border: #30363d;
-      --color-accent: #58a6ff;
-      --color-text: #c9d1d9;
-      --color-muted: #8b949e;
+      --bg: #fff;
+      --text: #3d4144;
+      --muted: #7a8288;
+      --border: #f2f3f3;
+      --border-dark: #dee0e2;
+      --primary: #6f777d;
+      --link: #0092ca;
+      --link-hover: #006d96;
+      --masthead-bg: #fff;
+      --footer-bg: #f2f3f3;
+      --sidebar-bg: transparent;
+      --tag-bg: #f2f3f3;
     }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
 
     body {
-      background: var(--color-bg);
-      color: var(--color-text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.6;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* ── Navigation ── */
-    nav {
+    a { color: var(--link); text-decoration: none; }
+    a:hover { color: var(--link-hover); text-decoration: underline; }
+
+    /* ── Masthead (상단 네비게이션 바) ── */
+    .masthead {
       position: sticky;
       top: 0;
-      background: var(--color-surface);
-      border-bottom: 1px solid var(--color-border);
-      padding: 0 2rem;
+      z-index: 100;
+      background: var(--masthead-bg);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    .masthead__inner-wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 56px;
-      z-index: 100;
+      min-height: 56px;
     }
-    .nav-logo { font-weight: 700; color: var(--color-accent); font-size: 1.1rem; }
-    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
-    .nav-links a { color: var(--color-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--color-text); }
+    .site-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+    .site-title:hover { color: var(--text); text-decoration: none; }
+    .site-subtitle {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--muted);
+      display: block;
+    }
+    .greedy-nav__links {
+      display: flex;
+      gap: 0;
+      list-style: none;
+    }
+    .greedy-nav__links a {
+      display: block;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transition: color 0.2s;
+    }
+    .greedy-nav__links a:hover { color: var(--link); text-decoration: none; }
 
-    /* ── Sections ── */
-    section { padding: 5rem 2rem; max-width: 860px; margin: 0 auto; }
+    /* ── Page wrapper (사이드바 + 본문 2단 레이아웃) ── */
+    .page__wrapper {
+      flex: 1;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
 
-    /* ── Hero ── */
-    #hero { text-align: center; padding-top: 6rem; }
-    #hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; margin-bottom: 1rem; }
-    #hero h1 span { color: var(--color-accent); }
-    #hero p { color: var(--color-muted); font-size: 1.1rem; max-width: 500px; margin: 0 auto 2rem; }
+    /* ── Sidebar (왼쪽 사이드바) ── */
+    .sidebar {
+      position: sticky;
+      top: 72px;
+    }
+    .author__avatar {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .author__avatar img {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 2px solid var(--border-dark);
+      display: block;
+      margin: 0 auto;
+    }
+    .author__avatar-placeholder {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 2px solid var(--border-dark);
+      background: var(--tag-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 2.5rem;
+    }
+    .author__content { text-align: center; margin-bottom: 1rem; }
+    .author__name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+    .author__bio {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .author__urls-wrapper { text-align: center; margin-bottom: 1rem; }
+    .author__urls {
+      list-style: none;
+      margin-top: 0.75rem;
+      text-align: left;
+    }
+    .author__urls li {
+      font-size: 0.8125rem;
+      padding: 0.25rem 0;
+      border-top: 1px solid var(--border);
+    }
+    .author__urls li:first-child { border-top: none; }
+    .author__urls a {
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .author__urls a:hover { color: var(--link); text-decoration: none; }
+    .author__urls .label { font-size: 0.8125rem; }
+    .btn--inverse {
+      display: inline-block;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border: 1px solid var(--border-dark);
+      border-radius: 4px;
+      color: var(--primary);
+      background: var(--bg);
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn--inverse:hover { background: var(--primary); color: #fff; }
+    #author-urls-list { display: none; }
+    #author-urls-list.show { display: block; }
+
+    /* ── Main content ── */
+    .page__content { min-width: 0; }
+
+    /* Hero intro */
+    .page__hero {
+      padding: 2rem 0 2.5rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2rem;
+    }
+    .page__hero h1 {
+      font-size: 1.953em;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+    .page__hero .page__lead {
+      font-size: 1.125em;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+      max-width: 600px;
+    }
+    .page__hero-btns { display: flex; gap: 0.5rem; flex-wrap: wrap; }
     .btn {
       display: inline-block;
-      padding: 0.6rem 1.4rem;
-      border-radius: 6px;
+      padding: 0.4rem 1rem;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      border-radius: 4px;
       text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 600;
-      transition: opacity 0.2s;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
     }
-    .btn:hover { opacity: 0.8; }
-    .btn-primary { background: var(--color-accent); color: #0d1117; }
-    .btn-outline { border: 1px solid var(--color-border); color: var(--color-text); margin-left: 0.75rem; }
+    .btn--primary { background: var(--link); color: #fff; border: 1px solid var(--link); }
+    .btn--primary:hover { background: var(--link-hover); border-color: var(--link-hover); color: #fff; text-decoration: none; }
+    .btn--inverse2 { background: #fff; color: var(--primary); border: 1px solid var(--border-dark); }
+    .btn--inverse2:hover { background: var(--primary); color: #fff; text-decoration: none; }
 
-    /* ── Section titles ── */
-    h2 { font-size: 1.5rem; margin-bottom: 2rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--color-border); }
-
-    /* ── About ── */
-    #about p { color: var(--color-muted); margin-bottom: 1rem; }
-
-    /* ── Skills ── */
-    .skills-grid { display: flex; flex-wrap: wrap; gap: 0.6rem; }
-    .skill-tag {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: 20px;
-      padding: 0.3rem 0.9rem;
-      font-size: 0.85rem;
-      color: var(--color-text);
+    /* Section */
+    .page__section {
+      margin-bottom: 2.5rem;
+    }
+    .page__section-title {
+      font-size: 1.25em;
+      font-weight: 700;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--border-dark);
+      margin-bottom: 1.25rem;
+      color: var(--text);
+    }
+    .page__section p {
+      font-size: 0.9375rem;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+      line-height: 1.65;
     }
 
-    /* ── Projects ── */
-    .projects-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
-    .project-card {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: 8px;
-      padding: 1.25rem;
-      transition: border-color 0.2s;
+    /* Skills */
+    .taxonomy__section { margin-bottom: 1rem; }
+    .taxonomy__items { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .taxonomy__item a {
+      display: inline-block;
+      padding: 0.25rem 0.7rem;
+      background: var(--tag-bg);
+      border: 1px solid var(--border-dark);
+      border-radius: 4px;
+      font-size: 0.8125rem;
+      color: var(--text);
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
     }
-    .project-card:hover { border-color: var(--color-accent); }
-    .project-card h3 { font-size: 1rem; margin-bottom: 0.4rem; color: var(--color-accent); }
-    .project-card p { font-size: 0.85rem; color: var(--color-muted); }
+    .taxonomy__item a:hover { background: var(--link); color: #fff; text-decoration: none; border-color: var(--link); }
 
-    /* ── Contact ── */
-    #contact p { color: var(--color-muted); margin-bottom: 1.5rem; }
-    .contact-links { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .contact-links a { color: var(--color-accent); text-decoration: none; font-size: 0.9rem; }
-    .contact-links a:hover { text-decoration: underline; }
+    /* Feature rows / Posts grid */
+    .feature__wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .feature__item {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.125);
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+    .feature__item:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+    .archive__item-teaser {
+      height: 140px;
+      background: var(--tag-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 2rem;
+    }
+    .feature__item-body { padding: 1rem; }
+    .archive__item-title {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      color: var(--link);
+    }
+    .archive__item-excerpt {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* Notice box */
+    .notice {
+      padding: 1em 1.25em;
+      background: #f8f9fa;
+      border-left: 4px solid var(--link);
+      border-radius: 0 4px 4px 0;
+      font-size: 0.875rem;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
 
     /* ── Footer ── */
-    footer {
+    .page__footer {
+      background: var(--footer-bg);
+      border-top: 1px solid var(--border-dark);
+      padding: 1.5rem 1rem;
+      font-size: 0.75rem;
+      color: var(--muted);
       text-align: center;
-      padding: 2rem;
-      color: var(--color-muted);
-      font-size: 0.8rem;
-      border-top: 1px solid var(--color-border);
+    }
+    .page__footer-follow { margin-bottom: 0.5rem; }
+    .page__footer-follow ul { list-style: none; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .page__footer-follow a { color: var(--muted); text-decoration: none; }
+    .page__footer-follow a:hover { color: var(--link); text-decoration: none; }
+    .page__footer-copyright { color: var(--muted); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .page__wrapper { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .greedy-nav__links { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Navigation -->
-  <nav>
-    <span class="nav-logo">jisooo11</span>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-
-  <!-- Hero -->
-  <section id="hero">
-    <h1>안녕하세요, <span>jisooo11</span>입니다.</h1>
-    <p>웹 개발을 공부하고 있는 개발자입니다.</p>
-    <a href="#projects" class="btn btn-primary">프로젝트 보기</a>
-    <a href="#contact" class="btn btn-outline">연락하기</a>
-  </section>
-
-  <!-- About -->
-  <section id="about">
-    <h2>About Me</h2>
-    <p>안녕하세요! 저는 웹 개발에 관심이 많은 개발자입니다.</p>
-    <p>새로운 기술을 배우고 실제 프로젝트에 적용하는 것을 즐깁니다.</p>
-  </section>
-
-  <!-- Skills -->
-  <section id="skills">
-    <h2>Skills</h2>
-    <div class="skills-grid">
-      <span class="skill-tag">HTML</span>
-      <span class="skill-tag">CSS</span>
-      <span class="skill-tag">JavaScript</span>
-      <span class="skill-tag">React</span>
-      <span class="skill-tag">Git</span>
+  <!-- Masthead -->
+  <div class="masthead">
+    <div class="masthead__inner-wrap">
+      <a class="site-title" href="/">
+        jisooo11
+        <span class="site-subtitle">개발자 포트폴리오</span>
+      </a>
+      <nav>
+        <ul class="greedy-nav__links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
     </div>
-  </section>
+  </div>
 
-  <!-- Projects -->
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="projects-grid">
-      <div class="project-card">
-        <h3>프로젝트 1</h3>
-        <p>프로젝트 설명을 여기에 작성하세요.</p>
+  <!-- Page wrapper -->
+  <div class="page__wrapper">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="author__avatar">
+        <div class="author__avatar-placeholder">
+          <i class="fas fa-user"></i>
+        </div>
       </div>
-      <div class="project-card">
-        <h3>프로젝트 2</h3>
-        <p>프로젝트 설명을 여기에 작성하세요.</p>
+      <div class="author__content">
+        <h3 class="author__name">jisooo11</h3>
+        <div class="author__bio">웹 개발을 공부하고 있는 개발자입니다.</div>
       </div>
-      <div class="project-card">
-        <h3>프로젝트 3</h3>
-        <p>프로젝트 설명을 여기에 작성하세요.</p>
+      <div class="author__urls-wrapper">
+        <button class="btn--inverse" onclick="document.getElementById('author-urls-list').classList.toggle('show')">Follow</button>
+        <ul class="author__urls" id="author-urls-list">
+          <li>
+            <a href="https://github.com/jisooo11" target="_blank" rel="noopener">
+              <i class="fab fa-fw fa-github" aria-hidden="true"></i>
+              <span class="label">GitHub</span>
+            </a>
+          </li>
+          <li>
+            <i class="fas fa-fw fa-location-dot" aria-hidden="true"></i>
+            <span>Korea</span>
+          </li>
+        </ul>
       </div>
+    </aside>
+
+    <!-- Main content -->
+    <div class="page__content">
+
+      <!-- Hero -->
+      <div class="page__hero" id="about">
+        <h1>안녕하세요, jisooo11입니다.</h1>
+        <p class="page__lead">웹 개발을 공부하고 있는 개발자입니다. 새로운 기술을 배우고 실제 프로젝트에 적용하는 것을 즐깁니다.</p>
+        <div class="page__hero-btns">
+          <a href="#projects" class="btn btn--primary">프로젝트 보기</a>
+          <a href="#contact" class="btn btn--inverse2">연락하기</a>
+        </div>
+      </div>
+
+      <!-- About -->
+      <div class="page__section">
+        <h2 class="page__section-title">About Me</h2>
+        <div class="notice">
+          <i class="fas fa-info-circle"></i> 이 페이지는 <strong>Minimal Mistakes</strong> 테마 스타일로 제작되었습니다.
+        </div>
+        <p>안녕하세요! 저는 웹 개발에 관심이 많은 개발자입니다.</p>
+        <p>새로운 기술을 배우고 실제 프로젝트에 적용하는 것을 즐깁니다.</p>
+      </div>
+
+      <!-- Skills -->
+      <div class="page__section" id="skills">
+        <h2 class="page__section-title">Skills</h2>
+        <div class="taxonomy__section">
+          <div class="taxonomy__items">
+            <div class="taxonomy__item"><a href="#">HTML</a></div>
+            <div class="taxonomy__item"><a href="#">CSS</a></div>
+            <div class="taxonomy__item"><a href="#">JavaScript</a></div>
+            <div class="taxonomy__item"><a href="#">React</a></div>
+            <div class="taxonomy__item"><a href="#">Git</a></div>
+            <div class="taxonomy__item"><a href="#">GitHub</a></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Projects -->
+      <div class="page__section" id="projects">
+        <h2 class="page__section-title">Projects</h2>
+        <div class="feature__wrapper">
+          <div class="feature__item">
+            <div class="archive__item-teaser">
+              <i class="fas fa-code"></i>
+            </div>
+            <div class="feature__item-body">
+              <h3 class="archive__item-title">프로젝트 1</h3>
+              <p class="archive__item-excerpt">프로젝트 설명을 여기에 작성하세요.</p>
+            </div>
+          </div>
+          <div class="feature__item">
+            <div class="archive__item-teaser">
+              <i class="fas fa-laptop-code"></i>
+            </div>
+            <div class="feature__item-body">
+              <h3 class="archive__item-title">프로젝트 2</h3>
+              <p class="archive__item-excerpt">프로젝트 설명을 여기에 작성하세요.</p>
+            </div>
+          </div>
+          <div class="feature__item">
+            <div class="archive__item-teaser">
+              <i class="fas fa-rocket"></i>
+            </div>
+            <div class="feature__item-body">
+              <h3 class="archive__item-title">프로젝트 3</h3>
+              <p class="archive__item-excerpt">프로젝트 설명을 여기에 작성하세요.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div class="page__section" id="contact">
+        <h2 class="page__section-title">Contact</h2>
+        <p>언제든지 연락주세요!</p>
+        <p>
+          <a href="https://github.com/jisooo11" target="_blank">
+            <i class="fab fa-github"></i> GitHub: jisooo11
+          </a>
+        </p>
+      </div>
+
+    </div><!-- /.page__content -->
+  </div><!-- /.page__wrapper -->
+
+  <!-- Footer -->
+  <footer class="page__footer">
+    <div class="page__footer-follow">
+      <ul>
+        <li><i class="fas fa-rss" aria-hidden="true"></i> <a href="#">Feed</a></li>
+        <li><a href="https://github.com/jisooo11" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+      </ul>
     </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>언제든지 연락주세요!</p>
-    <div class="contact-links">
-      <a href="https://github.com/jisooo11" target="_blank">GitHub</a>
-    </div>
-  </section>
-
-  <footer>
-    <p>&copy; 2026 jisooo11. All rights reserved.</p>
+    <div class="page__footer-copyright">&copy; 2026 jisooo11. Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/">Minimal Mistakes</a>.</div>
   </footer>
 
 </body>
